@@ -1,0 +1,11 @@
+POST http://localhost:5001/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Ken Gerardo ESTEVE",
+  "email": "test@gmail.com",
+  "password": "123456",
+  "phone": "0190909090",
+  "address": "Cotonou",
+  "profileImage": ""
+}
