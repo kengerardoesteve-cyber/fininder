@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import ServiceCard from '../components/ServiceCard';
-import { getServices, getCategories } from '../services/api';
+import ServiceCard from "./components/ServiceCard";
+import { getServices, getCategories } from './services/api';
 
-function Home() {
+function Service() {
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [recherche, setRecherche] = useState('');
@@ -28,32 +28,25 @@ function Home() {
   }, []);
 
   const servicesFiltres = services.filter((s) => {
-    const matchRecherche = s.title.toLowerCase().includes(recherche.toLowerCase());
+    const matchRecherche = s.titre.toLowerCase().includes(recherche.toLowerCase());
     const matchCategorie =
-      categorieActive === 'all' || s.categoryId === categorieActive;
+      categorieActive === 'all' || s.categorie === categorieActive;
     return matchRecherche && matchCategorie;
   });
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '24px' }}>
-      <h1>Trouve un prestataire près de chez toi</h1>
+    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '32px 24px' }}>
+      <h1>Tous les services</h1>
 
       <input
         type="text"
-        placeholder="Rechercher un service (plomberie, ménage...)"
+        placeholder="Rechercher un service..."
         value={recherche}
         onChange={(e) => setRecherche(e.target.value)}
-        style={{
-          width: '100%',
-          padding: '12px',
-          fontSize: '16px',
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          margin: '20px 0 12px',
-        }}
+        style={styles.searchInput}
       />
 
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '16px 0 24px' }}>
         <button
           onClick={() => setCategorieActive('all')}
           style={categorieActive === 'all' ? styles.chipActive : styles.chip}
@@ -62,26 +55,20 @@ function Home() {
         </button>
         {categories.map((cat) => (
           <button
-            key={cat._id}
-            onClick={() => setCategorieActive(cat._id)}
-            style={categorieActive === cat._id ? styles.chipActive : styles.chip}
+            key={cat.id}
+            onClick={() => setCategorieActive(cat.id)}
+            style={categorieActive === cat.id ? styles.chipActive : styles.chip}
           >
-            {cat.icon} {cat.name}
+            {cat.nom}
           </button>
         ))}
       </div>
 
       {loading && <p>Chargement des services...</p>}
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: '20px',
-        }}
-      >
+      <div style={styles.grid}>
         {servicesFiltres.map((service) => (
-          <ServiceCard key={service._id} service={service} />
+          <ServiceCard key={service.id} service={service} />
         ))}
       </div>
 
@@ -91,6 +78,13 @@ function Home() {
 }
 
 const styles = {
+  searchInput: {
+    width: '100%',
+    padding: '12px',
+    fontSize: '16px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+  },
   chip: {
     padding: '6px 14px',
     borderRadius: '20px',
@@ -108,6 +102,11 @@ const styles = {
     cursor: 'pointer',
     fontSize: '13px',
   },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+    gap: '20px',
+  },
 };
 
-export default Home;
+export default Service;

@@ -1,0 +1,25 @@
+{
+  "name": "fininder-pjx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kengerardoesteve-cyber/Local-Service-Finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kengerardoesteve-cyber/Local-Service-Finder/issues"
+  },
+  "homepage": "https://github.com/kengerardoesteve-cyber/Local-Service-Finder#readme",
+  "dependencies": {
+    "axios": "^1.18.1",
+    "bcryptjs": "^3.0.3"
+  }
+}

@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
     },
 
     password: {
@@ -26,18 +25,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["client", "provider", "admin"],
-      default: "client",
-    },
-
-    profileImage: {
-      type: String,
-      default: "",
-    },
-
-    address: {
-      type: String,
-      default: "",
+      default: "user",
     },
   },
   {
