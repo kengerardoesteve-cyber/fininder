@@ -1,25 +1,57 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Service from "./Pages/Service";
-import Accueil from "./Pages/Accueil";
-import Contact from "./Pages/Contact";
-import Connection from "./Pages/Connexion";
-import Inscription from "./Pages/Inscription";
+import { useNavigate, Link } from "react-router-dom";
 
-function App() {
+function Connexion() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const dataFormulaire = new FormData(e.target);
+    const email = dataFormulaire.get("email");
+
+    console.log("Tentative de connexion pour :", email);
+
+    localStorage.setItem("token", "fake-token-id-123");
+    navigate("/");
+  };
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Accueil />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/connection" element={<Connection />} />
-        <Route path="/inscription" element={<Inscription />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="auth-wrapper">
+      <form onSubmit={handleSubmit} className="auth-card">
+        <h1 className="auth-title">Connexion</h1>
+
+        <label className="form-label">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="exemple@mail.com"
+          required
+          className="form-input"
+        />
+
+        <label className="form-label">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Votre mot de passe"
+          required
+          className="form-input"
+        />
+
+        <button type="submit" className="form-button">
+          Se connecter
+        </button>
+
+        <p className="auth-footer-text">
+          Pas encore de compte ?{" "}
+          <Link to="/inscription" className="auth-link">
+            S'inscrire
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 }
 
-export default App;
+export default Connexion;
